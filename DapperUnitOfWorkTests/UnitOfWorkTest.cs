@@ -14,6 +14,11 @@ namespace DapperUnitOfWorkTest
 
         public UnitOfWorkTest()
         {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            int index = baseDir.IndexOf("DapperUnitOfWorkTests");
+            string dataDir = baseDir.Substring(0, index);
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.Combine(new string[] { dataDir, "DapperUnitOfWork", "bin", "Debug" }));
+
             _context = new LivrariaContext();
             _uow = new UnitOfWork(_context.Connection());
             _livrariaRepository = new LivrariaRepository(_uow);
